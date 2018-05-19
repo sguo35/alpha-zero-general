@@ -102,7 +102,7 @@ class Coach():
             # backup history to a file
             # NB! the examples were collected using the model from the previous iteration, so (i-1)  
             self.saveTrainExamples(i-1)
-            self.loadTrainExamples()
+            self.loadTrainExamples(i-1)
             
             # shuffle examlpes before training
             trainExamples = []
@@ -161,3 +161,18 @@ class Coach():
             f.closed
             # examples based on the model were already collected (loaded)
             self.skipFirstSelfPlay = True
+    def loadTrainExamples(self, iteration):
+        folder = self.args.checkpoint
+        filename = os.path.join(folder, self.getCheckpointFile(iteration)+".examples")
+        if not os.path.isfile(filename):
+            print(filename)
+            r = input("File with trainExamples not found. Continue? [y|n]")
+            if r != "y":
+                sys.exit()
+        else:
+            print("File with trainExamples found. Read it.")
+            with open(filename, "rb") as f:
+                self.trainExamplesHistory = Unpickler(f).load()
+            f.closed
+            # examples based on the model were already collected (loaded)
+            self.skipFirstSelfPlay = False
