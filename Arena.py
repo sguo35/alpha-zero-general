@@ -23,7 +23,7 @@ class Arena():
         self.game = game
         self.display = display
 
-    def playGame(self, verbose=False):
+    def playGame(self, verbose=True):
         """
         Executes one episode of a game.
 
@@ -48,8 +48,17 @@ class Arena():
             valids = self.game.getValidMoves(self.game.getCanonicalForm(board, curPlayer),1)
 
             if valids[action]==0:
-                print(action)
-                assert valids[action] >0
+                #print(action)
+                #print(valids)
+                #print(self.game.getValidMoves(self.game.getCanonicalForm(board, curPlayer),-1))
+                #print(self.game.stringRepresentation(self.game.getCanonicalForm(board, curPlayer)))
+                #assert valids[action] >0
+                valids = self.game.getValidMoves(self.game.getCanonicalForm(board, curPlayer),-1)
+                ind = 0
+                for i, obj in enumerate(valids):
+                    if obj == 1:
+                        ind = i
+                action = ind
             board, curPlayer = self.game.getNextState(board, curPlayer, action)
         if verbose:
             assert(self.display)

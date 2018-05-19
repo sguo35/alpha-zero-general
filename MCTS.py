@@ -39,9 +39,11 @@ class MCTS():
             probs = [0]*len(counts)
             probs[bestA]=1
             return probs
-
+        #valids = self.game.getValidMoves(canonicalBoard, 1)
+        #counts = counts * valids
         counts = [x**(1./temp) for x in counts]
         probs = [x/float(sum(counts)) for x in counts]
+        #print(probs)
         return probs
 
 

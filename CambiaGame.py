@@ -284,7 +284,7 @@ class CambiaGame(Game):
                         moves that are valid from the current board and player,
                         0 for invalid moves
         """
-        outArr = np.zeros(shape=(5,))
+        outArr = np.zeros(shape=(5), dtype='int')
         if player == 1:
             startIndex = 0
         else:
@@ -293,7 +293,8 @@ class CambiaGame(Game):
         for i in range(4):
             if np.where(np.isin(board[0][i + startIndex], [1.]))[0].size > 0 and np.where(np.isin(board[0][i + startIndex], [1.]))[0][0] < 54:
                 outArr[i] = 1
-        outArr[4] = 1.
+        outArr[4] = 1
+        #print(outArr)
         return outArr
 
     def getGameEnded(self, board, player):

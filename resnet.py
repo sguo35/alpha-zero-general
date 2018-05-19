@@ -121,6 +121,7 @@ image_tensor = layers.Input(shape=(img_height, img_width, img_channels))
 network_output = residual_network(image_tensor)
   
 model = models.Model(inputs=[image_tensor], outputs=network_output)
+model.compile(optimizer='adam', loss=['categorical_crossentropy', 'mse'])
 model.save('./model.h5')
 
 def get_model():
