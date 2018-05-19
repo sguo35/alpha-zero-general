@@ -102,6 +102,7 @@ class Coach():
             # backup history to a file
             # NB! the examples were collected using the model from the previous iteration, so (i-1)  
             self.saveTrainExamples(i-1)
+            self.loadTrainExamples()
             
             # shuffle examlpes before training
             trainExamples = []
@@ -130,6 +131,8 @@ class Coach():
                 print('ACCEPTING NEW MODEL')
                 self.nnet.save_checkpoint(folder=self.args.checkpoint, filename=self.getCheckpointFile(i))
                 self.nnet.save_checkpoint(folder=self.args.checkpoint, filename='best.pth.tar')                
+            self.nnet.load_checkpoint(folder=self.args.checkpoint, filename='temp.pth.tar')
+
 
     def getCheckpointFile(self, iteration):
         return 'checkpoint_' + str(iteration) + '.pth.tar'
