@@ -42,7 +42,14 @@ class MCTS():
         #valids = self.game.getValidMoves(canonicalBoard, 1)
         #counts = counts * valids
         counts = [x**(1./temp) for x in counts]
-        probs = [x/float(sum(counts)) for x in counts]
+        ctsSum = float(sum(counts))
+        if ctsSum == 0:
+            sume = 1
+        else:
+            sume = ctsSum
+        probs = [x/sume for x in counts]
+        if ctsSum == 0:
+            probs[4] = 1.
         #print(probs)
         return probs
 
